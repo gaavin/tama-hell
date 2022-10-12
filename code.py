@@ -26,10 +26,10 @@ class Tama:
 		self.B = Button(D8)
 		self.C = Button(D7)
 
-		self._buttons = {
-			"A": self.A,
-			"B": self.B,
-			"C": self.C
+		self._commands = {
+			"A": self.A.press,
+			"B": self.B.press,
+			"C": self.C.press
 		}
 
 	# listen for commands over serial
@@ -37,7 +37,7 @@ class Tama:
 		while True:
 			rx = input()
 			try:
-				await create_task(self._buttons[rx].press())
+				await create_task(self._commands[rx]())
 			except:
 				print(f"invalid button: {rx}")
 
